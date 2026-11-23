@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chaos Filet — Field Reference</title>
+<style>
+:root {
+  --ink: #1c2321;
+  --ink-soft: #4a5451;
+  --paper: #fbfaf8;
+  --panel: #f1f0ec;
+  --line: #ddd9d0;
+  --teal: #0d5c56;
+  --teal-soft: #e3efed;
+  --amber: #a15c1f;
+  --amber-soft: #f4ead9;
+  --code: #2c3532;
+  --radius: 3px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 6rem;
+}
+
+header.page-head {
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 1.75rem;
+  margin-bottom: 2.75rem;
+}
+
+header.page-head .kicker {
+  font-size: 0.95rem;
+  color: var(--teal);
+  font-weight: 600;
+  margin: 0 0 0.4rem;
+}
+
+header.page-head h1 {
+  font-size: 2.35rem;
+  line-height: 1.15;
+  margin: 0 0 0.6rem;
+  letter-spacing: -0.01em;
+}
+
+header.page-head p {
+  margin: 0;
+  max-width: 60ch;
+  color: var(--ink-soft);
+  font-size: 1.05rem;
+}
+
+h2 {
+  font-size: 1.4rem;
+  margin: 3rem 0 1rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--line);
+}
+
+h3 {
+  font-size: 1.1rem;
+  margin: 2rem 0 0.75rem;
+}
+
+h2:first-of-type { margin-top: 0; }
+
+p { margin: 0 0 1rem; }
+
+a { color: var(--teal); }
+
+code {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.88em;
+  background: var(--panel);
+  color: var(--code);
+  padding: 0.12em 0.4em;
+  border-radius: var(--radius);
+}
+
+pre {
+  background: var(--code);
+  color: #eef3f1;
+  padding: 1rem 1.15rem;
+  border-radius: var(--radius);
+  overflow-x: auto;
+  margin: 0 0 1.25rem;
+  font-size: 0.9rem;
+}
+
+pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  font-size: 1em;
+}
+
+ul, ol {
+  padding-left: 1.4rem;
+  margin: 0 0 1.25rem;
+}
+
+li { margin-bottom: 0.4rem; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 1.5rem;
+  font-size: 0.93rem;
+}
+
+th, td {
+  text-align: left;
+  padding: 0.55rem 0.75rem;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+th {
+  background: var(--panel);
+  font-weight: 600;
+  border-bottom: 1px solid var(--ink);
+}
+
+tr:last-child td { border-bottom: none; }
+
+td code, th code { white-space: nowrap; }
+
+.callout {
+  border-left: 3px solid var(--teal);
+  background: var(--teal-soft);
+  padding: 0.9rem 1.15rem;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  margin: 0 0 1.25rem;
+}
+
+.callout.warn {
+  border-left-color: var(--amber);
+  background: var(--amber-soft);
+}
+
+.callout p:last-child { margin-bottom: 0; }
+
+.field-key { font-weight: 600; }
+
+footer.page-foot {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="page-head">
+  <p class="kicker">Chaotic Fish Design Studio — Joomla Content Plugin</p>
+  <h1>Chaos Filet</h1>
+  <p>Pulls specific fields from one article into another article or a Custom HTML module, using a simple <code>{article ID:field}</code> tag. No bundled libraries beyond what Joomla itself ships with.</p>
+</header>
+
+<h2>Requirements</h2>
+<ul>
+  <li>Joomla 5 or 6</li>
+  <li>Works in: article body text, and Custom HTML modules (see below)</li>
+</ul>
+
+<h2>Install</h2>
+<ol>
+  <li>Extensions → Manage → Install → upload <code>plg_content_chaosfilet.zip</code></li>
+  <li>Extensions → Plugins → find <strong>Content - Chaos Filet</strong> → enable it</li>
+</ol>
+
+<h2>Basic usage</h2>
+<p>In any article body, add a tag like:</p>
+<pre><code>{article 12:title}</code></pre>
+<p>This pulls the <code>title</code> field from article ID <code>12</code> and inserts it at that spot.</p>
+
+<h3>No field list? Defaults to <code>body</code></h3>
+<pre><code>{article 12}</code></pre>
+<p>is the same as <code>{article 12:body}</code>.</p>
+
+<h3>Multiple fields in one tag</h3>
+<pre><code>{article 12:title,image,date}</code></pre>
+
+<h3>Field shortcuts</h3>
+<pre><code>{article 12:common}</code></pre>
+<p>Renders <code>title</code>, <code>image</code>, <code>body</code>, <code>date</code>, <code>author</code>, and <code>link</code>, in that order — a curated set for a typical teaser/card layout.</p>
+
+<pre><code>{article 12:all}</code></pre>
+<p>Renders <strong>every</strong> built-in field: <code>title</code>, <code>intro</code>, <code>fulltext</code>, <code>body</code>, <code>excerpt</code>, <code>image</code>, <code>fulltext_image</code>, <code>link</code>, <code>date</code>, <code>modified</code>, <code>author</code>, <code>category</code>, <code>tags</code>, <code>hits</code>.</p>
+<div class="callout warn">
+  <p><code>body</code> already contains <code>intro</code> + <code>fulltext</code>, so <code>all</code> does repeat that text — it's meant as a literal "everything available" dump, not a deduplicated summary. Custom fields aren't included either way, since those need an explicit <code>field:alias</code>.</p>
+</div>
+<p>Since <code>all</code> is meant as a debugging tool, each field's output is preceded by a small label naming the field — shown even when that field renders blank, so you can see at a glance what's populated and what isn't:</p>
+<pre><code>title:
+[title output]
+intro:
+[intro output]
+image:
+[nothing — no intro image set]
+...</code></pre>
+
+<h3>Custom fields</h3>
+<pre><code>{article 12:field:subtitle}</code></pre>
+<p>Pulls the custom field whose <strong>alias</strong> is <code>subtitle</code> (com_fields "Field Name"), rendered the way that field type normally displays.</p>
+
+<h2>Using it in a module</h2>
+<p>To use tags inside a <strong>Custom HTML</strong> module, open that module and set:</p>
+<div class="callout">
+  <p><strong>Advanced → Prepare Content = Yes</strong></p>
+</div>
+<p>Without that setting, Joomla never runs the module's content through the plugin, so the tag will just print as literal text.</p>
+
+<h2>What happens with unpublished or restricted articles</h2>
+<p>If the source article (the ID in the tag) is unpublished, outside its publish-up/publish-down window, or restricted to an access level the visitor doesn't have:</p>
+<ul>
+  <li><strong>Public visitors:</strong> see nothing — the tag just produces no output.</li>
+  <li><strong>Users who can edit that article:</strong> see a small badge instead, telling them why it didn't render (e.g. "source article is unpublished" or "source article is access-restricted"). This is meant as an in-place debugging aid for editors/admins, not something the public ever sees.</li>
+</ul>
+
+<h2>Plugin settings</h2>
+<p>The plugin itself has one configurable option, on the plugin's edit page:</p>
+<ul>
+  <li><strong>Excerpt Limit</strong> — how much of the intro text the <code>excerpt</code> field keeps (default <code>40</code>)</li>
+  <li><strong>Excerpt Limit Unit</strong> — <code>Words</code> or <code>Characters</code> (default <code>Words</code>)</li>
+</ul>
+
+<h2>Tag syntax reference</h2>
+<pre><code>{article ID:field1,field2,...}</code></pre>
+<ul>
+  <li><code>ID</code> — the numeric article ID</li>
+  <li>Field list is optional — omit it (and the colon) to default to <code>body</code></li>
+  <li>Otherwise, one or more comma-separated field names, no spaces required</li>
+</ul>
+
+<h3>Supported fields</h3>
+<table>
+  <thead>
+    <tr><th>Field</th><th>Output</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code class="field-key">title</code></td><td>The article's title, HTML-escaped</td></tr>
+    <tr><td><code class="field-key">intro</code></td><td>Intro text (raw HTML, as written in the editor)</td></tr>
+    <tr><td><code class="field-key">fulltext</code></td><td>Fulltext/"read more" text (raw HTML)</td></tr>
+    <tr><td><code class="field-key">body</code></td><td><code>intro</code> + <code>fulltext</code> combined — <strong>the default if no field is given</strong></td></tr>
+    <tr><td><code class="field-key">excerpt</code></td><td>Intro text, stripped of HTML and truncated to the configured Excerpt Limit (words or characters, set on the plugin's edit page), with <code>…</code> appended if cut off</td></tr>
+    <tr><td><code class="field-key">image</code></td><td>The intro image as an <code>&lt;img&gt;</code> tag</td></tr>
+    <tr><td><code class="field-key">fulltext_image</code></td><td>The "read more" image (image_fulltext) as an <code>&lt;img&gt;</code> tag</td></tr>
+    <tr><td><code class="field-key">link</code></td><td>The article's permalink, wrapped around its title</td></tr>
+    <tr><td><code class="field-key">date</code></td><td>The created date, formatted</td></tr>
+    <tr><td><code class="field-key">modified</code></td><td>The last-modified date, formatted (blank if never modified)</td></tr>
+    <tr><td><code class="field-key">author</code></td><td>Author name (uses the "Author Alias" if one is set)</td></tr>
+    <tr><td><code class="field-key">category</code></td><td>The article's category title</td></tr>
+    <tr><td><code class="field-key">tags</code></td><td>The article's tags, as a comma-separated list</td></tr>
+    <tr><td><code class="field-key">hits</code></td><td>The article's view count</td></tr>
+    <tr><td><code class="field-key">common</code></td><td><code>title</code> + <code>image</code> + <code>body</code> + <code>date</code> + <code>author</code> + <code>link</code>, in that order</td></tr>
+    <tr><td><code class="field-key">all</code></td><td>Every built-in field above, in the order listed in this table</td></tr>
+    <tr><td><code class="field-key">field:ALIAS</code></td><td>A custom field's value, by its alias (e.g. <code>field:subtitle</code>)</td></tr>
+  </tbody>
+</table>
+<p><code>all</code> is a literal dump of everything — it includes <code>intro</code> and <code>fulltext</code> separately <em>and</em> <code>body</code> (which is those two combined), so expect some repeated text if you use it as-is. <code>common</code> is the curated, non-redundant set for everyday use.</p>
+
+<h3>Markup</h3>
+<p>Every field is rendered as a <code>&lt;div&gt;</code> (image and link are the natural exceptions — <code>&lt;img&gt;</code> and <code>&lt;a&gt;</code> respectively). Each <code>&lt;div&gt;</code> carries <strong>two</strong> CSS classes: a namespaced one (<code>cf-field--title</code>) and a plain one matching the field name itself (<code>title</code>, <code>image</code>, <code>body</code>, or the custom field's alias for <code>field:</code> tags). Style either one:</p>
+<pre><code>.cf-field--image img,
+img.image { max-width: 100%; }
+
+.author { font-style: italic; }</code></pre>
+
+<h3>A couple of notes</h3>
+<ul>
+  <li><code>intro</code>, <code>fulltext</code>, and <code>body</code> are output as raw HTML exactly as stored — they are <strong>not</strong> re-processed by other content plugins, and a tag inside pulled-in text will not itself be expanded (this is intentional, to avoid runaway recursion).</li>
+  <li>Custom field values are rendered the same way that field type normally displays them on the front end. <code>field:ALIAS</code> is case-sensitive (aliases are matched exactly); every other field keyword is case-insensitive.</li>
+  <li>The plugin skips Smart Search indexing entirely (<code>com_finder.indexer</code> context), so restricted/unpublished content can't leak into the search index through a tag.</li>
+  <li>Article and tag lookups are cached for the life of the page request, so using the same <code>{article 12:...}</code> tag more than once on a page (e.g. once in the article, once in a module) only queries the database once.</li>
+</ul>
+
+<footer class="page-foot">
+  <p>Chaos Filet — plg_content_chaosfilet — Chaotic Fish Design Studio</p>
+</footer>
+
+</div>
+</body>
+</html>
