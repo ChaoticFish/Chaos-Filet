@@ -3,7 +3,7 @@
 /**
  * @package     Chaos Filet
  * @subpackage  plg_editors-xtd_chaosfilet
- * @version     1.3.0
+ * @version     1.4.0
  * @copyright   (C) 2026 Chaotic Fish Design
  * @license     GNU General Public License version 2 or later
  */
@@ -36,6 +36,9 @@ use Joomla\Event\SubscriberInterface;
  * It rides the logged-in session, requires a CSRF token, and requires
  * create or edit permission on com_content.
  *
+ * The popup follows the shared CFD editor style (prefix cfp-); its CSS is
+ * injected by the script, so there is no stylesheet asset.
+ *
  * Built on the lessons from the Chaos Loupe button: the script is attached
  * with registerAndUseScript() (registerScript() alone never outputs it) via
  * an explicit media/ path, and the ajax handler returns its data with
@@ -48,6 +51,16 @@ final class ChaosFilet extends CMSPlugin implements SubscriberInterface, Databas
     protected $autoloadLanguage = true;
 
     private const SEARCH_LIMIT = 25;
+
+    /** Strings the button's script reads with Joomla.Text._() (English fallbacks live in the script). */
+    private const JS_STRINGS = [
+        'TITLE', 'CLOSE', 'INTRO', 'SEC_ARTICLE', 'SEC_FIELDS', 'SEC_CUSTOM', 'SEC_OPTIONS', 'SEARCH',
+        'SEARCH_HINT', 'RESULTS', 'NO_RESULTS', 'LOADING', 'SEARCH_FAILED', 'UNPUBLISHED', 'ARCHIVED',
+        'FIELDS_HINT', 'SHORTCUTS', 'SHORTCUT_COMMON', 'SHORTCUT_ALL', 'CF_NONE', 'CF_RENDERED', 'CF_RAW',
+        'CF_HINT', 'REFERENCE', 'REF_ID', 'REF_ALIAS', 'LAYOUT', 'LAYOUT_DEFAULT', 'LAYOUT_HINT', 'INLINE',
+        'INLINE_HINT', 'YOUR_TAG', 'PICK_FIRST', 'COPY', 'COPIED', 'COPY_FAILED', 'RESET', 'CANCEL', 'INSERT',
+        'PLUGIN_OFF', 'INSERT_COPIED', 'INSERT_FAILED',
+    ];
 
     public static function getSubscribedEvents(): array
     {
@@ -66,16 +79,10 @@ final class ChaosFilet extends CMSPlugin implements SubscriberInterface, Databas
         $doc = $this->getApplication()->getDocument();
         $wa  = $doc->getWebAssetManager();
 
-        $wa->registerAndUseStyle(
-            'plg_editors_xtd_chaosfilet.style',
-            'media/plg_editors_xtd_chaosfilet/css/insert-tag.min.css',
-            ['version' => '1.3.0']
-        );
-
         $wa->registerAndUseScript(
             'editor-button.chaosfilet-insert',
             'media/plg_editors_xtd_chaosfilet/js/insert-tag.min.js',
-            ['version' => '1.3.0'],
+            ['version' => '1.4.0'],
             ['type' => 'module'],
             ['editors']
         );
@@ -90,36 +97,9 @@ final class ChaosFilet extends CMSPlugin implements SubscriberInterface, Databas
             'customFields'   => $this->getCustomFields(),
         ]);
 
-        Text::script('PLG_EDITORS-XTD_CHAOSFILET_JS_TITLE');
-        Text::script('PLG_EDITORS-XTD_CHAOSFILET_JS_SEARCH');
-        Text::script('PLG_EDITORS-XTD_CHAOSFILET_JS_SEARCH_HINT');
-        Text::script('PLG_EDITORS-XTD_CHAOSFILET_JS_ARTICLE');
-        Text::script('PLG_EDITORS-XTD_CHAOSFILET_JS_NO_RESULTS');
-        Text::script('PLG_EDITORS-XTD_CHAOSFILET_JS_LOADING');
-        Text::script('PLG_EDITORS-XTD_CHAOSFILET_JS_SEARCH_FAILED');
-        Text::script('PLG_EDITORS-XTD_CHAOSFILET_JS_REFERENCE');
-        Text::script('PLG_EDITORS-XTD_CHAOSFILET_JS_REF_ID');
-        Text::script('PLG_EDITORS-XTD_CHAOSFILET_JS_REF_ALIAS');
-        Text::script('PLG_EDITORS-XTD_CHAOSFILET_JS_FIELDS');
-        Text::script('PLG_EDITORS-XTD_CHAOSFILET_JS_FIELDS_HINT');
-        Text::script('PLG_EDITORS-XTD_CHAOSFILET_JS_SHORTCUTS');
-        Text::script('PLG_EDITORS-XTD_CHAOSFILET_JS_CUSTOM_FIELDS');
-        Text::script('PLG_EDITORS-XTD_CHAOSFILET_JS_CF_NONE');
-        Text::script('PLG_EDITORS-XTD_CHAOSFILET_JS_CF_RENDERED');
-        Text::script('PLG_EDITORS-XTD_CHAOSFILET_JS_CF_RAW');
-        Text::script('PLG_EDITORS-XTD_CHAOSFILET_JS_INLINE');
-        Text::script('PLG_EDITORS-XTD_CHAOSFILET_JS_INLINE_HINT');
-        Text::script('PLG_EDITORS-XTD_CHAOSFILET_JS_LAYOUT');
-        Text::script('PLG_EDITORS-XTD_CHAOSFILET_JS_LAYOUT_DEFAULT');
-        Text::script('PLG_EDITORS-XTD_CHAOSFILET_JS_PREVIEW');
-        Text::script('PLG_EDITORS-XTD_CHAOSFILET_JS_PICK_FIRST');
-        Text::script('PLG_EDITORS-XTD_CHAOSFILET_JS_CANCEL');
-        Text::script('PLG_EDITORS-XTD_CHAOSFILET_JS_INSERT');
-        Text::script('PLG_EDITORS-XTD_CHAOSFILET_JS_PLUGIN_OFF');
-        Text::script('PLG_EDITORS-XTD_CHAOSFILET_JS_COPIED');
-        Text::script('PLG_EDITORS-XTD_CHAOSFILET_JS_INSERT_FAILED');
-        Text::script('PLG_EDITORS-XTD_CHAOSFILET_JS_UNPUBLISHED');
-        Text::script('PLG_EDITORS-XTD_CHAOSFILET_JS_ARCHIVED');
+        foreach (self::JS_STRINGS as $key) {
+            Text::script('PLG_EDITORS-XTD_CHAOSFILET_JS_' . $key);
+        }
 
         $event->getButtonsRegistry()->add(new Button(
             'chaosfilet',

@@ -21,7 +21,6 @@ DIST = ROOT / 'dist'
 CON = ROOT / 'plg_content_chaosfilet'
 BTN = ROOT / 'plg_editors-xtd_chaosfilet'
 JS = BTN / 'media/js/insert-tag.js'
-CSS = BTN / 'media/css/insert-tag.css'
 PHP_MIN = '8.2'
 
 
@@ -47,7 +46,6 @@ def check_versions():
         'content chaosfilet.xml': xml_version(CON / 'chaosfilet.xml'),
         'button chaosfilet.xml': xml_version(BTN / 'chaosfilet.xml'),
         'insert-tag.js header': header_version(JS, 'Chaos Filet editor button'),
-        'insert-tag.css header': header_version(CSS, 'Chaos Filet editor button'),
     }
     php_files = [ROOT / 'script.php', *sorted(CON.rglob('*.php')), *sorted(BTN.rglob('*.php'))]
     for p in php_files:
@@ -94,14 +92,7 @@ def run(cmd):
 def minify():
     run(['npx', '--yes', 'terser@5', str(JS.relative_to(ROOT)), '--module', '--compress', '--mangle',
          '--comments', '/^!/', '-o', str(JS.with_suffix('.min.js').relative_to(ROOT))])
-    mini = CSS.with_suffix('.min.css')
-    run(['npx', '--yes', '-p', 'csso-cli@4', 'csso', str(CSS.relative_to(ROOT)), '--no-restructure',
-         '-o', str(mini.relative_to(ROOT))])
-    head = re.match(r'/\*!.*?\*/', CSS.read_text(encoding='utf-8'), re.S).group(0)
-    body = mini.read_text(encoding='utf-8')
-    if not body.startswith('/*!'):
-        mini.write_text(head + '\n' + body, encoding='utf-8')
-    print('✓ Minified insert-tag.js and insert-tag.css')
+    print('✓ Minified insert-tag.js (its CSS travels inside it)')
 
 
 def zip_dir(src, dest):
@@ -157,7 +148,8 @@ def publish(pkg):
 
 def main():
     version = check_versions()
-    check_css_order(CSS.read_text(encoding='utf-8'), 'insert-tag.css')
+    js = JS.read_text(encoding='utf-8')
+    check_css_order(re.search(r'const CSS_TEXT = `(.*?)`;', js, re.S).group(1), 'insert-tag.js styles')
     print('✓ CSS properties in order')
     if '--no-min' not in sys.argv:
         minify()

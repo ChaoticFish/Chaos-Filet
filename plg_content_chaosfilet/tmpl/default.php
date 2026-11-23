@@ -3,7 +3,7 @@
 /**
  * @package     Chaos Filet
  * @subpackage  plg_content_chaosfilet
- * @version     1.3.0
+ * @version     1.4.0
  * @copyright   (C) 2026 Chaotic Fish Design
  * @license     GNU General Public License version 2 or later
  */
@@ -20,6 +20,7 @@
  * @var bool      $wrap          Whether to add the outer wrapper (setting on, and at least one field not marked "!")
  * @var string    $wrapperClass  e.g. "cf-filet cf-filet--12"
  * @var string    $layout        The layout name used in the tag ("default" when none was given)
+ * @var \Joomla\Registry\Registry $params  The plugin's settings (e.g. card_heading)
  * @var \stdClass $article       Plain values: id, title, alias, catid, category, language, url, author,
  *                               created, modified, date, hits. Custom layouts (anything other than this
  *                               plugin's own default.php) also get intro, fulltext, body, excerpt,

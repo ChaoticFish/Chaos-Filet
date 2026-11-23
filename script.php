@@ -3,7 +3,7 @@
 /**
  * @package     Chaos Filet
  * @subpackage  pkg_chaosfilet
- * @version     1.3.0
+ * @version     1.4.0
  * @copyright   (C) 2026 Chaotic Fish Design
  * @license     GNU General Public License version 2 or later
  *
@@ -14,8 +14,8 @@
  *   already had the separate plugins (1.2.x / 1.0.x) keeps each one on or
  *   off exactly as it was; to Joomla that's still the package's "install",
  *   so the check is per plugin, not per package route.
- * - Deletes files earlier versions left behind (old language file names and
- *   READMEs that are no longer shipped).
+ * - Deletes files earlier versions left behind (old language file names,
+ *   READMEs that are no longer shipped, and the editor popup's old stylesheet).
  *
  * Kept free of newer PHP syntax so it parses, and can say why, on old servers.
  */
@@ -162,12 +162,21 @@ return new class () implements ServiceProviderInterface {
                         JPATH_PLUGINS . '/content/chaosfilet/README-chaosfilet.html',
                         JPATH_PLUGINS . '/content/chaosfilet/README.md',
                         JPATH_PLUGINS . '/editors-xtd/chaosfilet/README.md',
+                        // 1.4.0: the editor popup's CSS is injected by its script; the stylesheet is gone.
+                        JPATH_ROOT . '/media/plg_editors_xtd_chaosfilet/css/insert-tag.css',
+                        JPATH_ROOT . '/media/plg_editors_xtd_chaosfilet/css/insert-tag.min.css',
                     ];
 
                     foreach ($files as $file) {
                         if (is_file($file)) {
                             @unlink($file);
                         }
+                    }
+
+                    $cssDir = JPATH_ROOT . '/media/plg_editors_xtd_chaosfilet/css';
+
+                    if (is_dir($cssDir) && !(new \FilesystemIterator($cssDir))->valid()) {
+                        @rmdir($cssDir);
                     }
                 }
 

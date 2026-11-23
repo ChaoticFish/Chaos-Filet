@@ -3,7 +3,7 @@
 /**
  * @package     Chaos Filet
  * @subpackage  plg_content_chaosfilet
- * @version     1.3.0
+ * @version     1.4.0
  * @copyright   (C) 2026 Chaotic Fish Design
  * @license     GNU General Public License version 2 or later
  */
@@ -20,6 +20,7 @@
  *
  * @var \stdClass $article
  * @var string    $wrapperClass
+ * @var \Joomla\Registry\Registry $params  The plugin's settings; card_heading picks the title's heading level
  */
 
 defined('_JEXEC') or die;
@@ -27,6 +28,9 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Language\Text;
 
 $e = static fn ($v): string => htmlspecialchars((string) $v, ENT_QUOTES, 'UTF-8');
+
+$h = isset($params) ? (string) $params->get('card_heading', 'h3') : 'h3';
+$h = \in_array($h, ['h2', 'h3', 'h4', 'h5', 'h6'], true) ? $h : 'h3';
 ?>
 <article class="card <?php echo $e($wrapperClass); ?>">
     <?php if ($article->image) : ?>
@@ -35,7 +39,7 @@ $e = static fn ($v): string => htmlspecialchars((string) $v, ENT_QUOTES, 'UTF-8'
         ?> loading="lazy" decoding="async">
     <?php endif; ?>
     <div class="card-body">
-        <h3 class="card-title h5"><a href="<?php echo $e($article->url); ?>"><?php echo $e($article->title); ?></a></h3>
+        <<?php echo $h; ?> class="card-title h5"><a href="<?php echo $e($article->url); ?>"><?php echo $e($article->title); ?></a></<?php echo $h; ?>>
         <?php if ($article->date || $article->author) : ?>
             <p class="card-subtitle small text-body-secondary mb-2"><?php
                 echo $article->date;

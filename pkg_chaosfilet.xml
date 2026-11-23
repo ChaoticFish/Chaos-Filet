@@ -9,7 +9,7 @@
 	<authorUrl>https://chaoticfishdesign.com</authorUrl>
 	<packager>Chaotic Fish Design</packager>
 	<packagerurl>https://chaoticfishdesign.com</packagerurl>
-	<version>1.3.0</version>
+	<version>1.4.0</version>
 	<description>PKG_CHAOSFILET_XML_DESCRIPTION</description>
 	<scriptfile>script.php</scriptfile>
 	<blockChildUninstall>true</blockChildUninstall>

@@ -3,7 +3,7 @@
 /**
  * @package     Chaos Filet
  * @subpackage  plg_editors-xtd_chaosfilet
- * @version     1.3.0
+ * @version     1.4.0
  * @copyright   (C) 2026 Chaotic Fish Design
  * @license     GNU General Public License version 2 or later
  */

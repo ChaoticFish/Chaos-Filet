@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension method="upgrade" type="plugin" group="editors-xtd">
     <name>PLG_EDITORS-XTD_CHAOSFILET</name>
-    <version>1.3.0</version>
+    <version>1.4.0</version>
     <description>PLG_EDITORS-XTD_CHAOSFILET_XML_DESCRIPTION</description>
     <author>Chaotic Fish Design Studio</author>
     <creationDate>2026-11</creationDate>
@@ -16,7 +16,6 @@
     </files>
     <media destination="plg_editors_xtd_chaosfilet" folder="media">
         <folder>js</folder>
-        <folder>css</folder>
     </media>
     <languages folder="language">
         <language tag="en-GB">en-GB/plg_editors-xtd_chaosfilet.ini</language>

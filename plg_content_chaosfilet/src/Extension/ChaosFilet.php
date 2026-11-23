@@ -3,7 +3,7 @@
 /**
  * @package     Chaos Filet
  * @subpackage  plg_content_chaosfilet
- * @version     1.3.0
+ * @version     1.4.0
  * @copyright   (C) 2026 Chaotic Fish Design
  * @license     GNU General Public License version 2 or later
  */
@@ -251,7 +251,7 @@ final class ChaosFilet extends CMSPlugin implements SubscriberInterface, Databas
                     $rendered[] = [
                         'name' => 'label',
                         'raw'  => false,
-                        'html' => '<div class="cf-debug-label">' . $this->esc($entry['name']) . ':</div>',
+                        'html' => '<div class="cf-debug-label"><strong>' . $this->esc($entry['name']) . ':</strong></div>',
                     ];
                     continue;
                 }
@@ -284,6 +284,7 @@ final class ChaosFilet extends CMSPlugin implements SubscriberInterface, Databas
                 'wrap'         => $anyWrapped && (bool) $this->params->get('wrap_output', 1),
                 'wrapperClass' => $wrapperClass,
                 'layout'       => $layout,
+                'params'       => $this->params,
             ]);
         } finally {
             array_pop($this->renderStack);
