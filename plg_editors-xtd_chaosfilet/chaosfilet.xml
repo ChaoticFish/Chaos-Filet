@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension method="upgrade" type="plugin" group="editors-xtd">
+    <name>PLG_EDITORS-XTD_CHAOSFILET</name>
+    <version>1.3.0</version>
+    <description>PLG_EDITORS-XTD_CHAOSFILET_XML_DESCRIPTION</description>
+    <author>Chaotic Fish Design Studio</author>
+    <creationDate>2026-11</creationDate>
+    <copyright>(C) 2026 Chaotic Fish Design Studio</copyright>
+    <license>GNU General Public License version 2 or later</license>
+    <authorEmail>hello@chaoticfishdesign.com</authorEmail>
+    <authorUrl>https://chaoticfishdesign.com</authorUrl>
+    <namespace path="src">ChaoticFishDesign\Plugin\EditorsXtd\ChaosFilet</namespace>
+    <files>
+        <folder plugin="chaosfilet">services</folder>
+        <folder>src</folder>
+    </files>
+    <media destination="plg_editors_xtd_chaosfilet" folder="media">
+        <folder>js</folder>
+        <folder>css</folder>
+    </media>
+    <languages folder="language">
+        <language tag="en-GB">en-GB/plg_editors-xtd_chaosfilet.ini</language>
+        <language tag="en-GB">en-GB/plg_editors-xtd_chaosfilet.sys.ini</language>
+    </languages>
+</extension>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension method="upgrade" type="plugin" group="content">
+    <name>PLG_CONTENT_CHAOSFILET</name>
+    <version>1.3.0</version>
+    <description>PLG_CONTENT_CHAOSFILET_XML_DESCRIPTION</description>
+    <author>Chaotic Fish Design Studio</author>
+    <creationDate>2026-11</creationDate>
+    <copyright>(C) 2026 Chaotic Fish Design Studio</copyright>
+    <license>GNU General Public License version 2 or later</license>
+    <authorEmail>hello@chaoticfishdesign.com</authorEmail>
+    <authorUrl>https://chaoticfishdesign.com</authorUrl>
+    <namespace path="src">ChaoticFishDesign\Plugin\Content\ChaosFilet</namespace>
+    <files>
+        <folder plugin="chaosfilet">services</folder>
+        <folder>src</folder>
+        <folder>tmpl</folder>
+    </files>
+    <languages folder="language">
+        <language tag="en-GB">en-GB/plg_content_chaosfilet.ini</language>
+        <language tag="en-GB">en-GB/plg_content_chaosfilet.sys.ini</language>
+    </languages>
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field
+                    name="wrap_output"
+                    type="radio"
+                    label="PLG_CONTENT_CHAOSFILET_FIELD_WRAP_OUTPUT_LABEL"
+                    description="PLG_CONTENT_CHAOSFILET_FIELD_WRAP_OUTPUT_DESC"
+                    default="1"
+                    layout="joomla.form.field.radio.switcher"
+                >
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field
+                    name="excerpt_limit"
+                    type="number"
+                    label="PLG_CONTENT_CHAOSFILET_FIELD_EXCERPT_LIMIT_LABEL"
+                    description="PLG_CONTENT_CHAOSFILET_FIELD_EXCERPT_LIMIT_DESC"
+                    default="40"
+                    min="1"
+                />
+                <field
+                    name="excerpt_unit"
+                    type="list"
+                    label="PLG_CONTENT_CHAOSFILET_FIELD_EXCERPT_UNIT_LABEL"
+                    description="PLG_CONTENT_CHAOSFILET_FIELD_EXCERPT_UNIT_DESC"
+                    default="words"
+                >
+                    <option value="words">PLG_CONTENT_CHAOSFILET_FIELD_EXCERPT_UNIT_WORDS</option>
+                    <option value="characters">PLG_CONTENT_CHAOSFILET_FIELD_EXCERPT_UNIT_CHARACTERS</option>
+                </field>
+                <field
+                    name="date_format"
+                    type="text"
+                    label="PLG_CONTENT_CHAOSFILET_FIELD_DATE_FORMAT_LABEL"
+                    description="PLG_CONTENT_CHAOSFILET_FIELD_DATE_FORMAT_DESC"
+                    default="DATE_FORMAT_LC3"
+                    filter="string"
+                />
+                <field
+                    name="lazy_images"
+                    type="radio"
+                    label="PLG_CONTENT_CHAOSFILET_FIELD_LAZY_IMAGES_LABEL"
+                    description="PLG_CONTENT_CHAOSFILET_FIELD_LAZY_IMAGES_DESC"
+                    default="1"
+                    layout="joomla.form.field.radio.switcher"
+                >
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field
+                    name="increment_hits"
+                    type="radio"
+                    label="PLG_CONTENT_CHAOSFILET_FIELD_INCREMENT_HITS_LABEL"
+                    description="PLG_CONTENT_CHAOSFILET_FIELD_INCREMENT_HITS_DESC"
+                    default="0"
+                    layout="joomla.form.field.radio.switcher"
+                >
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field
+                    name="process_plugins"
+                    type="radio"
+                    label="PLG_CONTENT_CHAOSFILET_FIELD_PROCESS_PLUGINS_LABEL"
+                    description="PLG_CONTENT_CHAOSFILET_FIELD_PROCESS_PLUGINS_DESC"
+                    default="0"
+                    layout="joomla.form.field.radio.switcher"
+                >
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+            </fieldset>
+            <fieldset name="documentation" label="PLG_CONTENT_CHAOSFILET_FIELDSET_DOCS_LABEL">
+                <field
+                    name="docs_note"
+                    type="note"
+                    label="PLG_CONTENT_CHAOSFILET_DOCS_NOTE_LABEL"
+                    description="PLG_CONTENT_CHAOSFILET_DOCS_NOTE_DESC"
+                />
+            </fieldset>
+        </fields>
+    </config>
+</extension>
